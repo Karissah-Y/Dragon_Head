@@ -1,0 +1,38 @@
+// Written by: Karissah Yap
+// Controls a stepper motor (jaw) using an IR remote
+// Play button = move forward, Stop button = move backward
+
+
+#include <IRremote.h>
+#include <Stepper.h>
+
+// defines the necessary buttons on remote
+#define RECV_PIN 7
+#define play 0xE318261B // play button
+#define stop 0xEE886D7F // stop button
+
+// controls the amount of steps the servo takes
+const int stepsPerRevolution = 2048;
+Stepper myStepper(stepsPerRevolution, 8, 10, 9, 11);
+
+// decodes the buttons' code
+IRrecv irrecv(RECV_PIN);
+decode_results results;
+
+// sets servo speed
+void setup() {
+  myStepper.setSpeed(10);
+  irrecv.enableIRIn();
+}
+
+// if-else statement to control which functions go with which buttons
+void loop() {
+  if (irrecv.decode(&results)) {
+    if (results.value == 0xE318261B) {
+      myStepper.step(stepsPerRevolution);
+    } else if (results.value == 0xEE886D7F) {
+      myStepper.step(-stepsPerRevolution);
+    }
+    irrecv.resume();
+  }
+}

@@ -1,5 +1,5 @@
 # Dragon_Head
-E102 Project Code - C++ code for a remote controlled jaw with an Arduino
+E101 Project Code - C++ code for a remote controlled jaw with an Arduino
 ======================
 TEAM MEMBERS:
 - Lila. V
